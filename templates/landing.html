@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}ForwardicBot by SPHINX - Next-Gen Telegram Automation{% endblock %}
+
+{% block styles %}
+    <style>
+        /* Remove the padding-top added in base.html specifically for the hero section */
+        body {
+            padding-top: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 32, 39, 0.85), rgba(15, 32, 39, 0.95)),
+                        url('https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=1974&auto=format&fit=crop') no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(to top, var(--dark-bg), transparent); z-index: 1; }
+        .hero-section h1 { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; margin-bottom: 1.5rem; font-size: 3.5rem; }
+        .hero-section .lead { font-size: 1.25rem; margin-bottom: 2.5rem; color: var(--secondary-text); max-width: 700px; margin-left: auto; margin-right: auto; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .btn-primary.btn-lg { padding: 1rem 2.5rem; } /* Restore larger button padding for hero */
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 201, 167, 0.3); }
+
+        /* Features Section */
+        .features-section { padding: 100px 0; position: relative; }
+        .section-title { position: relative; margin-bottom: 70px; }
+        .section-title::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent-gradient); border-radius: 3px; }
+        .feature-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 30px; transition: all 0.3s ease; height: 100%; position: relative; overflow: hidden; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 20px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .feature-card h5 { font-weight: 600; margin-bottom: 15px; }
+
+        /* Pricing Section */
+        .pricing-section { padding: 100px 0; background: rgba(10, 15, 20, 0.7); }
+        .pricing-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 40px 30px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .pricing-card.popular { border: 2px solid var(--primary-color); transform: scale(1.03); }
+        .pricing-card.popular::before { content: 'MOST POPULAR'; position: absolute; top: 15px; right: -30px; background: var(--primary-color); color: white; padding: 5px 30px; font-size: 12px; font-weight: 600; transform: rotate(45deg); }
+        .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); }
+        .plan-price { font-size: 3rem; font-weight: 700; margin: 20px 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .plan-features { list-style: none; padding: 0; margin: 20px 0; }
+        .plan-features li { padding: 8px 0; color: var(--secondary-text); position: relative; padding-left: 25px; }
+        .plan-features li::before { content: '✓'; color: var(--primary-color); position: absolute; left: 0; font-weight: bold; }
+
+        /* Testimonial Section */
+        .testimonial-section { padding: 100px 0; background: linear-gradient(to bottom, rgba(10, 15, 20, 0.7), var(--dark-bg)); }
+        .testimonial-card { background: var(--card-bg); border-radius: 16px; padding: 30px; border: 1px solid var(--card-border); margin: 20px; }
+        .testimonial-text { font-style: italic; margin-bottom: 20px; color: var(--secondary-text); }
+        .testimonial-author { display: flex; align-items: center; }
+        .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
+        .testimonial-name { font-weight: 600; margin-bottom: 0; }
+        .testimonial-role { font-size: 0.9rem; color: var(--primary-color); margin-bottom: 0; }
+
+        /* Animations */
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 201, 167, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); } }
+        .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 2.5rem; }
+            .pricing-card.popular { transform: scale(1); }
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <section class="hero-section d-flex align-items-center text-center text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold animate__animated animate__fadeInDown">Next-Gen Telegram Automation</h1>
+                    <p class="lead my-4 animate__animated animate__fadeInUp">Zero Code, Full Control. Your central hub for managing all bot activities, from automated forwarding to smart, AI-powered selling, all at a glance.</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg animate-float">Start Your Free Trial</a>
+                    <div class="mt-5 animate__animated animate__fadeInUp animate__delay-1s">
+                        <p class="small text-muted">Trusted by 5,000+ Telegram marketers worldwide</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <div class="mx-3"><i class="fas fa-check-circle text-success me-1"></i><span>No credit card required</span></div>
+                            <div class="mx-3"><i class="fas fa-check-circle text-success me-1"></i><span>14-day free trial</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">Everything You Need, All in One Place</h2>
+                <p class="text-muted">A complete toolkit to automate, manage, and grow your Telegram presence.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-users-gear feature-icon"></i><h5>Account Management</h5><p>Add, remove, and manage multiple Telegram accounts with enterprise-grade ease and security.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-share-nodes feature-icon"></i><h5>Automated Forwarding</h5><p>Configure and schedule automated message forwarding from any source to your target groups.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-comments-dollar feature-icon"></i><h5>Smart Selling Setup</h5><p>Define AI-powered responses and actions based on incoming keywords to automate your sales funnel.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-users feature-icon"></i><h5>Group Joiner</h5><p>Effortlessly join multiple Telegram groups and channels automatically from a simple list.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-link feature-icon"></i><h5>Link Validator & Extractor</h5><p>Verify the validity of Telegram links and extract valuable usernames or links from any channel.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="feature-card"><i class="fa-solid fa-list-check feature-icon"></i><h5>Live Activity Logs</h5><p>Monitor all bot operations in real-time with detailed, color-coded logs on your dashboard.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">Pricing Plans & 50% Introductory Offer</h2>
+                <p class="text-muted">Choose the perfect plan for your needs. First-time users get 50% off!</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4"><div class="pricing-card h-100"><h4>Starter</h4><div class="plan-price">$9<span class="fs-6">/month</span></div><p class="text-muted">Perfect for individuals getting started</p><ul class="plan-features"><li>Up to 3 Telegram accounts</li><li>Basic forwarding</li><li>5 groups/channels</li><li>Email support</li><li>Basic analytics</li></ul><a href="{{ url_for('register') }}" class="btn btn-outline-primary w-100">Get Started</a></div></div>
+                <div class="col-md-6 col-lg-4"><div class="pricing-card popular h-100"><h4>Professional</h4><div class="plan-price">$19<span class="fs-6">/month</span></div><p class="text-muted">For serious Telegram marketers</p><ul class="plan-features"><li>Up to 10 Telegram accounts</li><li>Advanced forwarding</li><li>Unlimited groups/channels</li><li>Priority support</li><li>AI-powered responses</li><li>Advanced analytics</li></ul><a href="{{ url_for('register') }}" class="btn btn-primary w-100">Get Started</a></div></div>
+                <div class="col-md-6 col-lg-4"><div class="pricing-card h-100"><h4>Enterprise</h4><div class="plan-price">$49<span class="fs-6">/month</span></div><p class="text-muted">For agencies and large teams</p><ul class="plan-features"><li>Unlimited Telegram accounts</li><li>All features included</li><li>Custom automation scripts</li><li>24/7 dedicated support</li><li>White-label options</li><li>API access</li></ul><a href="{{ url_for('register') }}" class="btn btn-outline-primary w-100">Get Started</a></div></div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg animate-pulse-slow">Redeem Offer & Get Started</a>
+                <p class="text-muted mt-3">14-day free trial • No credit card required</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">What Our Users Say</h2>
+                <p class="text-muted">Join thousands of satisfied marketers growing their business with ForwardicBot</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4"><div class="testimonial-card"><div class="testimonial-text">"ForwardicBot has completely transformed how I manage my Telegram channels. I've seen a 3x increase in engagement since I started using it."</div><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="testimonial-avatar"><div><h6 class="testimonial-name">Alex Johnson</h6><p class="testimonial-role">Digital Marketer</p></div></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="testimonial-card"><div class="testimonial-text">"The automation features saved me hours of work each day. Now I can focus on creating content while ForwardicBot handles the distribution."</div><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="testimonial-avatar"><div><h6 class="testimonial-name">Sarah Chen</h6><p class="testimonial-role">Content Creator</p></div></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="testimonial-card"><div class="testimonial-text">"As an agency managing multiple clients, ForwardicBot's multi-account support is a game-changer. Highly recommended!"</div><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="testimonial-avatar"><div><h6 class="testimonial-name">Michael Rodriguez</h6><p class="testimonial-role">Agency Owner</p></div></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" style="background: var(--accent-gradient);">
+        <div class="container py-5">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="text-white fw-bold mb-4">Ready to Transform Your Telegram Marketing?</h2>
+                    <p class="text-white mb-5">Join thousands of marketers who are already automating their Telegram presence with ForwardicBot</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-5 py-3 fw-bold">Start Your Free Trial Now</a>
+                    <p class="text-white-50 mt-3">14-day free trial • No credit card required</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

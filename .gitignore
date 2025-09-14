@@ -1,0 +1,56 @@
+# --- Secrets & Environment Variables ---
+# This is the most important line. It prevents your secret keys from being uploaded.
+.env
+
+# --- Telegram Session Files ---
+# These files are created after a successful login and are highly sensitive.
+*.session
+*.session-journal
+
+# --- Virtual Environment ---
+# Ignores your virtual environment folder. The user named theirs 'spinx'.
+spinx/
+# Common virtual environment names
+venv/
+.venv/
+
+# --- Python ---
+# Byte-compiled / optimized / C-extensions
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Databases ---
+# Ignores the SQLite database file from our earlier versions.
+app.db
+*.sqlite3
+
+# --- IDE & Editor Specific ---
+# Visual Studio Code
+.vscode/
+# PyCharm
+.idea/
+
+# --- OS Specific ---
+# macOS
+.DS_Store
+# Windows
+Thumbs.db

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Welcome, {{ session['username'] }}!</h1>
+    <p class="lead mb-5">This is your central hub for managing all bot activities.</p>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-users-gear fa-3x mb-3"></i>
+                    <h5 class="card-title">Account Management</h5>
+                    <p class="card-text text-white-50">Add, remove, and manage your Telegram accounts.</p>
+                    <a href="{{ url_for('accounts') }}" class="btn btn-primary">Manage Accounts</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+             <div class="card bg-secondary text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-share-nodes fa-3x mb-3"></i>
+                    <h5 class="card-title">Automated Forwarding</h5>
+                    <p class="card-text text-white-50">Set up rules to automatically forward messages.</p>
+                    <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+             <div class="card bg-secondary text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-comments-dollar fa-3x mb-3"></i>
+                    <h5 class="card-title">Smart Selling</h5>
+                    <p class="card-text text-white-50">Automate your sales with AI-powered responses.</p>
+                    <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
