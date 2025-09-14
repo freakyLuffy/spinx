@@ -167,8 +167,6 @@ def handle_submit_2fa(password):
 def handle_disconnect():
     # Clean up Redis state if user disconnects mid-login
     redis_client.delete(request.sid)
-
-mongo = PyMongo(app) # Initialize PyMongo
 # --- Routes ---
 
 
