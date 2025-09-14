@@ -1,3 +1,13 @@
+# requirements.txt
+
+Flask
+Flask-WTF
+Flask-Redis
+Werkzeug
+redis
+flask-pymongo
+Telethon
 flask-socketio
 eventlet
 python-dotenv
+gunicorn
