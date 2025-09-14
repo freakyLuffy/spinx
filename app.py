@@ -25,8 +25,8 @@ socketio = SocketIO(app)
 app.config['SECRET_KEY'] = os.urandom(24) 
 
 # ** MODIFIED LINE: Use your Redis Cloud connection string **
-app.config['REDIS_URL'] = os.getenv("REDIS_URL")
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+app.config['REDIS_URL'] =os.environ.get("REDIS_URL")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI", "mongodb://localhost:27017")
 # --- Extensions Initialization ---
 redis_client = FlaskRedis(app, decode_responses=True) # Added decode_responses=True
 mongo = PyMongo(app)
